@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('layouts.public', function ($view) {
+        View::composer('*', function ($view) {
             $view->with('settings', [
                 'salon_name' => Setting::get('salon_name', 'Cris Création'),
                 'salon_address' => Setting::get('salon_address', '123 Rue de la Beauté, 75001 Paris'),
