@@ -85,7 +85,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
-                    <h3 class="font-display text-2xl text-white mb-4">Cris Création</h3>
+                    <h3 class="font-display text-2xl text-white mb-4">{{ $settings['salon_name'] }}</h3>
                     <p class="text-sm leading-relaxed text-gray-400">Votre salon de coiffure d'exception. Expertise, élégance et bien-être au service de votre beauté.</p>
                 </div>
                 <div>
@@ -100,9 +100,9 @@
                 <div>
                     <h4 class="text-sm font-semibold uppercase tracking-wider text-white mb-4">Contact</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
-                        <li>123 Rue de la Beauté, 75001 Paris</li>
-                        <li>01 23 45 67 89</li>
-                        <li>contact@criscreation.fr</li>
+                        <li>{{ $settings['salon_address'] }}</li>
+                        <li>{{ $settings['salon_phone'] }}</li>
+                        <li>{{ $settings['salon_email'] }}</li>
                     </ul>
                 </div>
             </div>

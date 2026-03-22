@@ -20,21 +20,21 @@
                             <svg class="w-5 h-5 text-gold mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                             <div>
                                 <p class="font-medium text-gray-900">Adresse</p>
-                                <p class="text-gray-500 text-sm">123 Rue de la Beauté, 75001 Paris</p>
+                                <p class="text-gray-500 text-sm">{{ $settings['salon_address'] }}</p>
                             </div>
                         </div>
                         <div class="flex items-start space-x-4">
                             <svg class="w-5 h-5 text-gold mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                             <div>
                                 <p class="font-medium text-gray-900">Téléphone</p>
-                                <p class="text-gray-500 text-sm">01 23 45 67 89</p>
+                                <p class="text-gray-500 text-sm">{{ $settings['salon_phone'] }}</p>
                             </div>
                         </div>
                         <div class="flex items-start space-x-4">
                             <svg class="w-5 h-5 text-gold mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                             <div>
                                 <p class="font-medium text-gray-900">Email</p>
-                                <p class="text-gray-500 text-sm">contact@criscreation.fr</p>
+                                <p class="text-gray-500 text-sm">{{ $settings['salon_email'] }}</p>
                             </div>
                         </div>
                     </div>
@@ -43,22 +43,39 @@
                 <div class="bg-white p-8 shadow-sm">
                     <h2 class="font-display text-2xl font-semibold mb-6">Horaires d'ouverture</h2>
                     <div class="space-y-2 text-sm">
-                        <div class="flex justify-between py-2 border-b border-gray-100">
-                            <span class="text-gray-600">Lundi</span>
-                            <span class="font-medium text-gray-400">Fermé</span>
-                        </div>
-                        <div class="flex justify-between py-2 border-b border-gray-100">
-                            <span class="text-gray-600">Mardi - Vendredi</span>
-                            <span class="font-medium text-gray-900">9h00 - 19h00</span>
-                        </div>
-                        <div class="flex justify-between py-2">
-                            <span class="text-gray-600">Samedi</span>
-                            <span class="font-medium text-gray-900">9h00 - 18h00</span>
-                        </div>
-                        <div class="flex justify-between py-2">
-                            <span class="text-gray-600">Dimanche</span>
-                            <span class="font-medium text-gray-400">Fermé</span>
-                        </div>
+                        @if($settings['opening_hours'])
+                            @foreach(explode("\n", $settings['opening_hours']) as $line)
+                                @php $line = trim($line); @endphp
+                                @if($line)
+                                    <div class="flex justify-between py-2 border-b border-gray-100 last:border-0">
+                                        @if(str_contains(strtolower($line), ':'))
+                                            @php [$day, $hours] = array_pad(explode(':', $line, 2), 2, ''); @endphp
+                                            <span class="text-gray-600">{{ trim($day) }}</span>
+                                            <span class="font-medium {{ str_contains(strtolower($hours), 'fermé') ? 'text-gray-400' : 'text-gray-900' }}">{{ trim($hours) }}</span>
+                                        @else
+                                            <span class="text-gray-600">{{ $line }}</span>
+                                        @endif
+                                    </div>
+                                @endif
+                            @endforeach
+                        @else
+                            <div class="flex justify-between py-2 border-b border-gray-100">
+                                <span class="text-gray-600">Lundi</span>
+                                <span class="font-medium text-gray-400">Fermé</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-gray-100">
+                                <span class="text-gray-600">Mardi - Vendredi</span>
+                                <span class="font-medium text-gray-900">9h00 - 19h00</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-gray-100">
+                                <span class="text-gray-600">Samedi</span>
+                                <span class="font-medium text-gray-900">9h00 - 18h00</span>
+                            </div>
+                            <div class="flex justify-between py-2">
+                                <span class="text-gray-600">Dimanche</span>
+                                <span class="font-medium text-gray-400">Fermé</span>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
