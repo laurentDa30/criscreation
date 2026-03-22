@@ -26,6 +26,8 @@
         .carousel-slide { transition: opacity 0.8s ease-in-out; }
         .fade-in { animation: fadeIn 0.6s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slowZoom { from { transform: scale(1); } to { transform: scale(1.08); } }
+        .aspect-square { aspect-ratio: 1 / 1; }
     </style>
 </head>
 <body class="bg-cream min-h-screen">
